@@ -27,9 +27,11 @@ import java.util.List;
 
 
 /**
+ * 在消息长度前加前缀的编码器.长度值以二进制形式做前缀.
  * An encoder that prepends the length of the message.  The length value is
  * prepended as a binary form.
  * <p>
+ * 比如,<tt>{@link LengthFieldPrepender}(2)</tt>将编码下面12个字节的字符串:
  * For example, <tt>{@link LengthFieldPrepender}(2)</tt> will encode the
  * following 12-bytes string:
  * <pre>
@@ -43,6 +45,7 @@ import java.util.List;
  * + 0x000C | "HELLO, WORLD" |
  * +--------+----------------+
  * </pre>
+ *
  * If you turned on the {@code lengthIncludesLengthFieldLength} flag in the
  * constructor, the encoded data would look like the following
  * (12 (original data) + 2 (prepended data) = 14 (0xE)):

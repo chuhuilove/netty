@@ -30,23 +30,21 @@ import java.net.SocketAddress;
 /**
  * A nexus to a network socket or a component which is capable of I/O
  * operations such as read, write, connect, and bind.
+ * 连接到网络套接字或能够进行I/O操作(如读、写、连接和绑定)的组件的纽带.
  * <p>
- * A channel provides a user:
+ *  channel为用户提供:
  * <ul>
- * <li>the current state of the channel (e.g. is it open? is it connected?),</li>
- * <li>the {@linkplain ChannelConfig configuration parameters} of the channel (e.g. receive buffer size),</li>
- * <li>the I/O operations that the channel supports (e.g. read, write, connect, and bind), and</li>
- * <li>the {@link ChannelPipeline} which handles all I/O events and requests
- *     associated with the channel.</li>
+ * <li>channel当前状态(e.g. is it open? is it connected?),</li>
+ * <li>channel的{@linkplain ChannelConfig 配置参数}(e.g. 接收缓冲区大小),</li>
+ * <li>channel支持的I/O操作(e.g. read, write, connect, and bind),</li>
+ * <li>{@link ChannelPipeline} 处理所有与channel相关的I/O事件和请求.</li>
  * </ul>
  *
- * <h3>All I/O operations are asynchronous.</h3>
+ * <h3>所有I/O操作都是异步的</h3>
  * <p>
- * All I/O operations in Netty are asynchronous.  It means any I/O calls will
- * return immediately with no guarantee that the requested I/O operation has
- * been completed at the end of the call.  Instead, you will be returned with
- * a {@link ChannelFuture} instance which will notify you when the requested I/O
- * operation has succeeded, failed, or canceled.
+ * 在Netty中,所有I/O操作都是异步的.这意味着任何I/O调用都将立即返回,并且不保证在调用结束时已经请求的I/O操作已完成.
+ * 相反,你将被返回一个{@link ChannelFuture}实例,该实例将在请求的I/O操作已经完成,失败或者取消时通知你.
+ *
  *
  * <h3>Channels are hierarchical</h3>
  * <p>
@@ -54,6 +52,10 @@ import java.net.SocketAddress;
  * how it was created.  For instance, a {@link SocketChannel}, that was accepted
  * by {@link ServerSocketChannel}, will return the {@link ServerSocketChannel}
  * as its parent on {@link #parent()}.
+ *
+ * {@link Channel}可以拥有{@linkplain #parent() 双亲},具体取决于它的创建方式.
+ * 例如,{@link ServerSocketChannel}接受的{@link SocketChannel}将在{@link #parent()}上返回{@link ServerSocketChannel}作为其双亲.
+ *
  * <p>
  * The semantics of the hierarchical structure depends on the transport
  * implementation where the {@link Channel} belongs to.  For example, you could
@@ -61,13 +63,18 @@ import java.net.SocketAddress;
  * share one socket connection, as <a href="http://beepcore.org/">BEEP</a> and
  * <a href="http://en.wikipedia.org/wiki/Secure_Shell">SSH</a> do.
  *
- * <h3>Downcast to access transport-specific operations</h3>
+ * 层次结构的语义取决于{@link Channel}所属的传输实现.例如,你可以编写一个新的{@link Channel}实现,
+ * 创建共享一个套接字连接的子channel,就像<a href="http://beepcore.org/">BEEP</a>和<a href="http://en.wikipedia.org/wiki/Secure_Shell">SSH</a> 一样。
+ *
+ * <h3>Downcast to access transport-specific operations 向下强制转换以访问特定于传输的操作</h3>
  * <p>
  * Some transports exposes additional operations that is specific to the
  * transport.  Down-cast the {@link Channel} to sub-type to invoke such
  * operations.  For example, with the old I/O datagram transport, multicast
  * join / leave operations are provided by {@link DatagramChannel}.
  *
+ * 某些传输会暴露特定于传输的其他操作.将{@link Channel}向下转换为子类型来调用这些操作.
+ * 例如,使用旧的I/O数据报传输,组播 join/leave 操作由{@link DatagramChannel}提供.
  * <h3>Release resources</h3>
  * <p>
  * It is important to call {@link #close()} or {@link #close(ChannelPromise)} to release all
@@ -77,7 +84,7 @@ import java.net.SocketAddress;
 public interface Channel extends AttributeMap, ChannelOutboundInvoker, Comparable<Channel> {
 
     /**
-     * Returns the globally unique identifier of this {@link Channel}.
+     * 返回这个{@link Channel}的全局唯一标志符 i.e. id.
      */
     ChannelId id();
 
@@ -120,10 +127,14 @@ public interface Channel extends AttributeMap, ChannelOutboundInvoker, Comparabl
     ChannelMetadata metadata();
 
     /**
-     * Returns the local address where this channel is bound to.  The returned
+     * Returns the local address where this channel is bound to.
+     *
+     * The returned
      * {@link SocketAddress} is supposed to be down-cast into more concrete
      * type such as {@link InetSocketAddress} to retrieve the detailed
      * information.
+     *
+     * 返回绑定此channel的本地地址.返回的{@link SocketAddress}应该被向下转换为更具体的类型,例如{@link InetSocketAddress}以获取详细信息.
      *
      * @return the local address of this channel.
      *         {@code null} if this channel is not bound.

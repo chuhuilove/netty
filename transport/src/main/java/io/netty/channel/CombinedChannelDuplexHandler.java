@@ -66,6 +66,9 @@ public class CombinedChannelDuplexHandler<I extends ChannelInboundHandler, O ext
      *                                  in the type hierarchy
      */
     protected final void init(I inboundHandler, O outboundHandler) {
+
+
+
         validate(inboundHandler, outboundHandler);
         this.inboundHandler = inboundHandler;
         this.outboundHandler = outboundHandler;

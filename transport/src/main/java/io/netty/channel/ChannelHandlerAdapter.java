@@ -22,11 +22,12 @@ import io.netty.util.internal.InternalThreadLocalMap;
 import java.util.Map;
 
 /**
- * Skeleton implementation of a {@link ChannelHandler}.
+ * {@link ChannelHandler}的骨架实现.
  */
 public abstract class ChannelHandlerAdapter implements ChannelHandler {
 
     // Not using volatile because it's used only for a sanity check.
+    // 不使用volatile,因为它仅用于健全性检查。
     boolean added;
 
     /**

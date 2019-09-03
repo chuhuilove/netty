@@ -29,23 +29,22 @@ import java.nio.channels.Channels;
  * and other handlers. Among other things a handler can notify the next {@link ChannelHandler} in the
  * {@link ChannelPipeline} as well as modify the {@link ChannelPipeline} it belongs to dynamically.
  *
+ * 允许{@link ChannelHandler}与其{@link ChannelPipeline}和其他处理程序进行交互.
+ * 除此之外,处理程序还可以通知{@link ChannelPipeline}中的下一个{@link ChannelHandler}以及动态修改它所属的{@link ChannelPipeline}.
+ *
  * <h3>Notify</h3>
  *
- * You can notify the closest handler in the same {@link ChannelPipeline} by calling one of the various methods
- * provided here.
+ * 您可以通过调用此处提供的各种方法之一,在同一{@link ChannelPipeline}中通知最近的handler.
+ * 请参考{@link ChannelPipeline}来理解事件如何流动的.
  *
- * Please refer to {@link ChannelPipeline} to understand how an event flows.
+ * <h3>修改pipeline</h3>
  *
- * <h3>Modifying a pipeline</h3>
- *
- * You can get the {@link ChannelPipeline} your handler belongs to by calling
- * {@link #pipeline()}.  A non-trivial application could insert, remove, or
- * replace handlers in the pipeline dynamically at runtime.
+ * 您可以通过调用{@link #pipeline()}获取你的handler所属的{@link ChannelPipeline}.
+ * 应用程序可以在运行时动态地插入、删除或替换pipeline中的handler.
  *
  * <h3>Retrieving for later use</h3>
  *
- * You can keep the {@link ChannelHandlerContext} for later use, such as
- * triggering an event outside the handler methods, even from a different thread.
+ * 你可以保留{@link ChannelHandlerContext}供以后使用,例如在处理程序方法之外触发事件,甚至可以从不同的线程触发.
  * <pre>
  * public class MyHandler extends {@link ChannelDuplexHandler} {
  *
@@ -62,32 +61,37 @@ import java.nio.channels.Channels;
  * }
  * </pre>
  *
- * <h3>Storing stateful information</h3>
+ * <h3>存储状态信息</h3>
  *
  * {@link #attr(AttributeKey)} allow you to
  * store and access stateful information that is related with a handler and its
  * context.  Please refer to {@link ChannelHandler} to learn various recommended
  * ways to manage stateful information.
  *
- * <h3>A handler can have more than one context</h3>
+ * {@link #attr(AttributeKey)}允许您存储和访问与handler及其上下文相关的有状态信息.
+ * 请参考{@link ChannelHandler}以了解管理有状态信息的各种推荐方式.
  *
- * Please note that a {@link ChannelHandler} instance can be added to more than
- * one {@link ChannelPipeline}.  It means a single {@link ChannelHandler}
- * instance can have more than one {@link ChannelHandlerContext} and therefore
- * the single instance can be invoked with different
- * {@link ChannelHandlerContext}s if it is added to one or more
- * {@link ChannelPipeline}s more than once.
+ *
+ * <h3>一个handler可以有多个context</h3>
+ *
+ * 请注意,一个{@link ChannelHandler}实例可以被添加到多个{@link ChannelPipeline}.
+ * 这意味着单个{@link ChannelHandler}实例可以有多个{@link ChannelHandlerContext},
+ * 因此,单实例一旦被添加到多个{@link ChannelPipeline}后,就可以被多个不同的{@link ChannelHandlerContext}调用.
+ *
  * <p>
  * For example, the following handler will have as many independent {@link AttributeKey}s
  * as how many times it is added to pipelines, regardless if it is added to the
  * same pipeline multiple times or added to different pipelines multiple times:
+ *
+ * 例如,以下处理程序将具有与pipeline添加的次数一样多的独立{@link AttributeKey},
+ * 无论它是多次添加到同一pipeline还是多次添加到不同pipeline：
+ *
  * <pre>
  * public class FactorialHandler extends {@link ChannelInboundHandlerAdapter} {
  *
  *   private final {@link AttributeKey}&lt;{@link Integer}&gt; counter = {@link AttributeKey}.valueOf("counter");
  *
- *   // This handler will receive a sequence of increasing integers starting
- *   // from 1.
+ *   // 此处理程序将从1开始接收一系列递增的整数
  *   {@code @Override}
  *   public void channelRead({@link ChannelHandlerContext} ctx, Object msg) {
  *     Integer a = ctx.attr(counter).get();
@@ -104,6 +108,11 @@ import java.nio.channels.Channels;
  * // they refer to the same handler instance.  Because the FactorialHandler
  * // stores its state in a context object (using an {@link AttributeKey}), the factorial is
  * // calculated correctly 4 times once the two pipelines (p1 and p2) are active.
+ * //
+ * // 不同的上下文对象被赋予"f1","f2","f3"和"f4",即使它们引用相同的handler实例.
+ * // 因为FactorialHandler将其状态存储在上下文对象中(使用{@link AttributeKey}),
+ * // 所以当两个管道(p1和p2)处于活动状态时,factorial将被正确计算4次.
+ * //
  * FactorialHandler fh = new FactorialHandler();
  *
  * {@link ChannelPipeline} p1 = {@link Channels}.pipeline();

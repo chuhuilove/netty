@@ -18,8 +18,7 @@ package io.netty.handler.codec.http;
 import io.netty.buffer.ByteBuf;
 
 /**
- * Combine the {@link HttpRequest} and {@link FullHttpMessage}, so the request is a <i>complete</i> HTTP
- * request.
+ * 合并{@link HttpRequest}和{@link FullHttpMessage},因此请求是<i>完整的</i> HTTP请求.
  */
 public interface FullHttpRequest extends HttpRequest, FullHttpMessage {
     @Override

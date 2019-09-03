@@ -20,15 +20,15 @@ import io.netty.channel.ChannelHandlerMask.Skip;
 /**
  * Abstract base class for {@link ChannelInboundHandler} implementations which provide
  * implementations of all of their methods.
+ * {@link ChannelInboundHandler}实现的抽象基类,它提供了所有方法的实现.
  *
  * <p>
- * This implementation just forward the operation to the next {@link ChannelHandler} in the
- * {@link ChannelPipeline}. Sub-classes may override a method implementation to change this.
+ * 这个实现在{@link ChannelPipeline}里只是转发操作到下一个{@link ChannelHandler}.
+ * 子类可以重写方法实现来改变它.
  * </p>
  * <p>
- * Be aware that messages are not released after the {@link #channelRead(ChannelHandlerContext, Object)}
- * method returns automatically. If you are looking for a {@link ChannelInboundHandler} implementation that
- * releases the received messages automatically, please see {@link SimpleChannelInboundHandler}.
+ * 请注意,在{@link #channelRead(ChannelHandlerContext,Object)}方法自动返回后,不会释放消息.
+ * 如果你正在寻找一个自动释放收到消息的{@link ChannelInboundHandler}实现,请参阅{@link SimpleChannelInboundHandler}.
  * </p>
  */
 public class ChannelInboundHandlerAdapter extends ChannelHandlerAdapter implements ChannelInboundHandler {

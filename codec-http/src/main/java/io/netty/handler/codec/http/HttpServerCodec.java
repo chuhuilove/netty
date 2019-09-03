@@ -24,6 +24,8 @@ import java.util.List;
 import java.util.Queue;
 
 /**
+ * {@link HttpRequestDecoder}和{@link HttpResponseEncoder}的结合体,支持更简单的服务器端HTTP实现.
+ *
  * A combination of {@link HttpRequestDecoder} and {@link HttpResponseEncoder}
  * which enables easier server side HTTP implementation.
  *
@@ -41,6 +43,7 @@ public final class HttpServerCodec extends CombinedChannelDuplexHandler<HttpRequ
      * {@code maxChunkSize (8192)}).
      */
     public HttpServerCodec() {
+
         this(4096, 8192, 8192);
     }
 

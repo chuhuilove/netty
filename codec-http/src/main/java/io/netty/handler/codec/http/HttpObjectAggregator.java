@@ -37,7 +37,12 @@ import static io.netty.handler.codec.http.HttpUtil.getContentLength;
  * A {@link ChannelHandler} that aggregates an {@link HttpMessage}
  * and its following {@link HttpContent}s into a single {@link FullHttpRequest}
  * or {@link FullHttpResponse} (depending on if it used to handle requests or responses)
- * with no following {@link HttpContent}s.  It is useful when you don't want to take
+ * with no following {@link HttpContent}s.
+ *
+ * 一个{@link ChannelHandler},它将聚合一个{@link HttpMessage}和其后续的{@link HttpContent}到单个{@link FullHttpRequest}
+ * 或{@link FullHttpResponse}(取决于它是否用于处理请求或响应),而不包含{@link HttpContent}.
+ *
+ * It is useful when you don't want to take
  * care of HTTP messages whose transfer encoding is 'chunked'.  Insert this
  * handler after {@link HttpResponseDecoder} in the {@link ChannelPipeline} if being used to handle
  * responses, or after {@link HttpRequestDecoder} and {@link HttpResponseEncoder} in the

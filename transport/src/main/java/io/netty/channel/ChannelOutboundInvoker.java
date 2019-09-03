@@ -76,8 +76,10 @@ public interface ChannelOutboundInvoker {
      * Request to close the {@link Channel} and notify the {@link ChannelFuture} once the operation completes,
      * either because the operation was successful or because of
      * an error.
+     * 请求关闭{@link Channel}并且在操作完成后通知{@link ChannelFuture},原因要么是操作成功,要么是出现错误.
      *
      * After it is closed it is not possible to reuse it again.
+     * 关闭后,它不可能被再次重用.
      * <p>
      * This will result in having the
      * {@link ChannelOutboundHandler#close(ChannelHandlerContext, ChannelPromise)}
@@ -100,10 +102,9 @@ public interface ChannelOutboundInvoker {
     ChannelFuture deregister();
 
     /**
-     * Request to bind to the given {@link SocketAddress} and notify the {@link ChannelFuture} once the operation
-     * completes, either because the operation was successful or because of an error.
+     * 请求绑定到给定的{@link SocketAddress},并在操作完成后通知{@link ChannelFuture},原因可能是操作成功,也可能是错误.
      *
-     * The given {@link ChannelPromise} will be notified.
+     * 将通知给定的{@link ChannelPromise}.
      * <p>
      * This will result in having the
      * {@link ChannelOutboundHandler#bind(ChannelHandlerContext, SocketAddress, ChannelPromise)} method

@@ -29,9 +29,16 @@ import java.util.concurrent.ConcurrentHashMap;
  * A special {@link ChannelInboundHandler} which offers an easy way to initialize a {@link Channel} once it was
  * registered to its {@link EventLoop}.
  *
+ * 一个特殊的{@link ChannelInboundHandler},它提供了一种在{@link EventLoop}注册后初始化{@link Channel}的简便方法.
+ *
  * Implementations are most often used in the context of {@link Bootstrap#handler(ChannelHandler)} ,
  * {@link ServerBootstrap#handler(ChannelHandler)} and {@link ServerBootstrap#childHandler(ChannelHandler)} to
  * setup the {@link ChannelPipeline} of a {@link Channel}.
+ *
+ * 实现最常用于{@link Bootstrap#handler(ChannelHandler)},
+ * {@link ServerBootstrap#handler(ChannelHandler)}和{@link ServerBootstrap#childHandler(ChannelHandler)}的上下文中,
+ * 以设置{@link ChannelPipeline}一个{@link Channel}.
+ *
  *
  * <pre>
  *
@@ -46,8 +53,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * bootstrap.childHandler(new MyChannelInitializer());
  * ...
  * </pre>
- * Be aware that this class is marked as {@link Sharable} and so the implementation must be safe to be re-used.
- *
+ * 请注意,此类标记为{@link Sharable},因此实现必须安全才能重复使用.
  * @param <C>   A sub-type of {@link Channel}
  */
 @Sharable
@@ -73,17 +79,18 @@ public abstract class ChannelInitializer<C extends Channel> extends ChannelInbou
     @Override
     @SuppressWarnings("unchecked")
     public final void channelRegistered(ChannelHandlerContext ctx) throws Exception {
-        // Normally this method will never be called as handlerAdded(...) should call initChannel(...) and remove
-        // the handler.
+        // 通常这个方法永远不会被调用,因为handlerAdded(...)应该调用initChannel(...)并删除处理程序。
         if (initChannel(ctx)) {
-            // we called initChannel(...) so we need to call now pipeline.fireChannelRegistered() to ensure we not
-            // miss an event.
+            // 我们调用了initChannel(…),所以现在需要调用pipeline.fireChannelRegistered(),以确保不会丢失某个事件.
+
             ctx.pipeline().fireChannelRegistered();
 
             // We are done with init the Channel, removing all the state for the Channel now.
+            // 我们已经完成了对通道的初始化,现在删除通道的所有状态.
             removeState(ctx);
         } else {
             // Called initChannel(...) before which is the expected behavior, so just forward the event.
+            // 在此之前调用initChannel(...)是预期的行为,因此只需转发事件即可.
             ctx.fireChannelRegistered();
         }
     }

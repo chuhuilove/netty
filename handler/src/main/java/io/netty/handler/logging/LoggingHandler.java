@@ -69,6 +69,7 @@ public class LoggingHandler extends ChannelDuplexHandler {
         logger = InternalLoggerFactory.getInstance(getClass());
         this.level = level;
         internalLevel = level.toInternalLevel();
+        logger.info("LoggingHandler has initialized by cyzi");
     }
 
     /**

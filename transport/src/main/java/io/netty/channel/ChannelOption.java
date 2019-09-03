@@ -23,6 +23,10 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 
 /**
+ * {@link ChannelOption}允许以类型安全的安全的方式配置{@link ChannelConfig}.
+ * 支持哪个{@link ChannelOption}取决于{@link ChannelConfig}的实际实现,并且可能取决于它所属的传输的性质.
+ *
+ *
  * A {@link ChannelOption} allows to configure a {@link ChannelConfig} in a type-safe
  * way. Which {@link ChannelOption} is supported depends on the actual implementation
  * of {@link ChannelConfig} and may depend on the nature of the transport it belongs

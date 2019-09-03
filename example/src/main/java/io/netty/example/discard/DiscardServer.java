@@ -30,7 +30,7 @@ import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.handler.ssl.util.SelfSignedCertificate;
 
 /**
- * Discards any incoming data.
+ * 丢弃传入的任何数据
  */
 public final class DiscardServer {
 
@@ -54,6 +54,7 @@ public final class DiscardServer {
             b.group(bossGroup, workerGroup)
              .channel(NioServerSocketChannel.class)
              .handler(new LoggingHandler(LogLevel.INFO))
+
              .childHandler(new ChannelInitializer<SocketChannel>() {
                  @Override
                  public void initChannel(SocketChannel ch) {
@@ -68,7 +69,7 @@ public final class DiscardServer {
             // Bind and start to accept incoming connections.
             ChannelFuture f = b.bind(PORT).sync();
 
-            // Wait until the server socket is closed.
+            // Wait until the server socket is closed. 等待直到server socket被关闭
             // In this example, this does not happen, but you can do that to gracefully
             // shut down your server.
             f.channel().closeFuture().sync();

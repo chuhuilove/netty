@@ -91,9 +91,12 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
     }
 
     /**
-     * The {@link Class} which is used to create {@link Channel} instances from.
      * You either use this or {@link #channelFactory(io.netty.channel.ChannelFactory)} if your
      * {@link Channel} implementation has no no-args constructor.
+     *
+     * {@link Class} 被用于创建{@link Channel}实例.
+     * 如果你的{@link Channel}实现有无参构造函数,你可以使用此函数或{@link #channelFactory(io.netty.channel.ChannelFactory)}
+     *
      */
     public B channel(Class<? extends C> channelClass) {
         return channelFactory(new ReflectiveChannelFactory<C>(
@@ -159,6 +162,10 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
     /**
      * Allow to specify a {@link ChannelOption} which is used for the {@link Channel} instances once they got
      * created. Use a value of {@code null} to remove a previous set {@link ChannelOption}.
+     *
+     * 允许指定{@link ChannelOption},它在创建后用于{@link Channel}实例.
+     * 使用{@code null}值来移除之前设置的{@link ChannelOption}.
+     *
      */
     public <T> B option(ChannelOption<T> option, T value) {
         ObjectUtil.checkNotNull(option, "option");
@@ -228,7 +235,7 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
     }
 
     /**
-     * Create a new {@link Channel} and bind it.
+     * 创建一个新的{@link Channel}并且绑定它.
      */
     public ChannelFuture bind(int inetPort) {
         return bind(new InetSocketAddress(inetPort));
@@ -350,7 +357,7 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
     }
 
     /**
-     * the {@link ChannelHandler} to use for serving the requests.
+     * 用于提供请求的{@link ChannelHandler}.
      */
     public B handler(ChannelHandler handler) {
         this.handler = ObjectUtil.checkNotNull(handler, "handler");

@@ -64,7 +64,8 @@ import java.net.SocketAddress;
  * <a href="http://en.wikipedia.org/wiki/Secure_Shell">SSH</a> do.
  *
  * 层次结构的语义取决于{@link Channel}所属的传输实现.例如,你可以编写一个新的{@link Channel}实现,
- * 创建共享一个套接字连接的子channel,就像<a href="http://beepcore.org/">BEEP</a>和<a href="http://en.wikipedia.org/wiki/Secure_Shell">SSH</a> 一样。
+ * 创建共享一个套接字连接的子channel,就像<a href="http://beepcore.org/">BEEP</a>和
+ * <a href="http://en.wikipedia.org/wiki/Secure_Shell">SSH</a> 一样。
  *
  * <h3>Downcast to access transport-specific operations 向下强制转换以访问特定于传输的操作</h3>
  * <p>

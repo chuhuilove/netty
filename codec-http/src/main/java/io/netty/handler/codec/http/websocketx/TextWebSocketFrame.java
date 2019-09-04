@@ -25,7 +25,7 @@ import io.netty.util.CharsetUtil;
 public class TextWebSocketFrame extends WebSocketFrame {
 
     /**
-     * Creates a new empty text frame.
+     * 创建一个新的空文本frame
      */
     public TextWebSocketFrame() {
         super(Unpooled.buffer(0));

@@ -38,24 +38,28 @@ import static io.netty.util.internal.ObjectUtil.*;
 /**
  * This handler does all the heavy lifting for you to run a websocket server.
  *
+ * 这个handler为你运行一个websocket服务完成了所有繁重的工作.
+ *
+ *
  * It takes care of websocket handshaking as well as processing of control frames (Close, Ping, Pong). Text and Binary
  * data frames are passed to the next handler in the pipeline (implemented by you) for processing.
  *
- * See <tt>io.netty.example.http.websocketx.html5.WebSocketServer</tt> for usage.
+ * 它负责处理websocket握手和帧(close,ping,pong)的控制处理.文本和二进制数据帧将传递给pipeline中的下一个处理程序(由你实现)进行处理.
  *
- * The implementation of this handler assumes that you just want to run  a websocket server and not process other types
- * HTTP requests (like GET and POST). If you wish to support both HTTP requests and websockets in the one server, refer
- * to the <tt>io.netty.example.http.websocketx.server.WebSocketServer</tt> example.
+ * 有关使用方法,请参阅 <tt>io.netty.example.http.websocketx.html5.WebSocketServer</tt>.
  *
- * To know once a handshake was done you can intercept the
- * {@link ChannelInboundHandler#userEventTriggered(ChannelHandlerContext, Object)} and check if the event was instance
- * of {@link HandshakeComplete}, the event will contain extra information about the handshake such as the request and
- * selected subprotocol.
+ * 这个handler实现假定你只想运行一个websocket服务并且不处理其他类型的HTTP请求(类似于 GET 和POST).
+ * 如果你希望在一个服务上同时支持HTTP请求和websocket,参考<tt>io.netty.example.http.websocketx.server.WebSocketServer</tt>示例.
+ *
+ * 要知道握手完成后你可以拦截
+ * {@link ChannelInboundHandler#userEventTriggered(ChannelHandlerContext, Object)}并检查事件是否是{@link HandshakeComplete}的实例,
+ * 该事件将包含有关握手的额外信息,例如请求和选定的子协议.
+ *
  */
 public class WebSocketServerProtocolHandler extends WebSocketProtocolHandler {
 
     /**
-     * Events that are fired to notify about handshake status
+     * 用于通知握手状态的事件
      */
     public enum ServerHandshakeStateEvent {
         /**

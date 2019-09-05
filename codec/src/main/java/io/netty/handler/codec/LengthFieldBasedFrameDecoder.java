@@ -43,13 +43,18 @@ import io.netty.handler.codec.serialization.ObjectDecoder;
  * {@link LengthFieldBasedFrameDecoder}具有许多配置参数,因此它可以解码具有长度字段的任何消息,这通常在专有的client-server协议中看到.
  *
  *
- * <h3>2 bytes length field at offset 0, do not strip header</h3>
+ * <h3>2 bytes length field at offset 0, do not strip header2字节长度字段在偏移量为0时不要带header</h3>
  *
  * The value of the length field in this example is <tt>12 (0x0C)</tt> which
  * represents the length of "HELLO, WORLD".  By default, the decoder assumes
  * that the length field represents the number of the bytes that follows the
  * length field.  Therefore, it can be decoded with the simplistic parameter
  * combination.
+ *
+ * 此示例中长度字段的值为<tt>12(0x0C)</tt>,表示"HELLO,WORLD"的长度.
+ * 默认情况下，解码器假定length字段表示length字段后面的字节数.
+ * 因此,可以用简单的参数组合对其进行解码。
+ *
  * <pre>
  * <b>lengthFieldOffset</b>   = <b>0</b>
  * <b>lengthFieldLength</b>   = <b>2</b>
@@ -63,13 +68,18 @@ import io.netty.handler.codec.serialization.ObjectDecoder;
  * +--------+----------------+      +--------+----------------+
  * </pre>
  *
- * <h3>2 bytes length field at offset 0, strip header</h3>
+ * <h3>2 bytes length field at offset 0, strip header偏移量为0的2字节长度字段,带标题</h3>
  *
  * Because we can get the length of the content by calling
  * {@link ByteBuf#readableBytes()}, you might want to strip the length
  * field by specifying <tt>initialBytesToStrip</tt>.  In this example, we
  * specified <tt>2</tt>, that is same with the length of the length field, to
  * strip the first two bytes.
+ *
+ * 因为通过调用{@link ByteBuf#readableBytes()}我们可以获取到内容的长度,
+ * 您可能希望通过指定<tt>initialBytesToStrip</tt>来去除长度字段.
+ * 在这个例子中,我们指定了<tt>2</tt>,它与长度字段的长度相同,以去除前两个字节.
+ *
  * <pre>
  * lengthFieldOffset   = 0
  * lengthFieldLength   = 2

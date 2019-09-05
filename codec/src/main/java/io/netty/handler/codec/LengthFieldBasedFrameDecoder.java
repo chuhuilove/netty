@@ -30,11 +30,18 @@ import io.netty.handler.codec.serialization.ObjectDecoder;
  * value of the length field in the message.  It is particularly useful when you
  * decode a binary message which has an integer header field that represents the
  * length of the message body or the whole message.
+ *
+ * 它根据消息中length字段的值动态地分割接收到的{@link ByteBuf}的解码器.
+ * 当您解码具有整数报头字段的二进制消息时,它特别有用,该字段表示消息体或整个消息的长度.
+ *
  * <p>
  * {@link LengthFieldBasedFrameDecoder} has many configuration parameters so
  * that it can decode any message with a length field, which is often seen in
  * proprietary client-server protocols. Here are some example that will give
  * you the basic idea on which option does what.
+ *
+ * {@link LengthFieldBasedFrameDecoder}具有许多配置参数,因此它可以解码具有长度字段的任何消息,这通常在专有的client-server协议中看到.
+ *
  *
  * <h3>2 bytes length field at offset 0, do not strip header</h3>
  *
@@ -274,14 +281,12 @@ public class LengthFieldBasedFrameDecoder extends ByteToMessageDecoder {
     }
 
     /**
-     * Creates a new instance.
+     * 创建一个新实例.
      *
      * @param byteOrder
      *        the {@link ByteOrder} of the length field
      * @param maxFrameLength
-     *        the maximum length of the frame.  If the length of the frame is
-     *        greater than this value, {@link TooLongFrameException} will be
-     *        thrown.
+     *        帧的最大长度.如果帧的长度大于这个值,则抛出{@link TooLongFrameException}
      * @param lengthFieldOffset
      *        the offset of the length field
      * @param lengthFieldLength

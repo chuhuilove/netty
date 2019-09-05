@@ -28,6 +28,9 @@ import io.netty.handler.ssl.util.SelfSignedCertificate;
 
 /**
  * A HTTP server showing how to use the HTTP multipart package for file uploads and decoding post data.
+ *
+ * 一个HTTP服务器,显示如何使用HTTP多部分包进行文件上载和解码后期数据。
+ *
  */
 public final class HttpUploadServer {
 

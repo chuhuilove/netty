@@ -58,7 +58,7 @@ public class CombinedChannelDuplexHandler<I extends ChannelInboundHandler, O ext
     }
 
     /**
-     * Initialized this handler with the specified handlers.
+     * 用指定的handler来初始化本类中的handler
      *
      * @throws IllegalStateException if this handler was not constructed via the default constructor or
      *                               if this handler does not implement all required handler interfaces

@@ -39,10 +39,20 @@ import java.util.Set;
  * added {@link Channel}.  A {@link Channel} can belong to more than one
  * {@link ChannelGroup}.
  *
- * <h3>Broadcast a message to multiple {@link Channel}s</h3>
+ * 线程安全的{@link Set},它包含开放的{@link Channel}并提供各种批量操作.
+ * 使用{@link ChannelGroup},你可以分类 {@link Channel}到富有意义的组中.
+ * 已经关闭的{@link Channel}会自动从集合中移出,所以你不需要担心已添加{@link Channel}的生命周期.
+ * 一个{@link Channel}可以属于多个{@link ChannelGroup}.
+ *
+ *
+ * <h3>广播一个消息到多个{@link Channel}</h3>
  * <p>
  * If you need to broadcast a message to more than one {@link Channel}, you can
  * add the {@link Channel}s associated with the recipients and call {@link ChannelGroup#write(Object)}:
+ *
+ * 如果你需要广播消息到多个{@link Channel},
+ * 你可以添加与收件人关联的{@link Channel},并调用{@link ChannelGroup#write(Object)}:
+ *
  * <pre>
  * <strong>{@link ChannelGroup} recipients =
  *         new {@link DefaultChannelGroup}({@link GlobalEventExecutor}.INSTANCE);</strong>
@@ -54,13 +64,17 @@ import java.util.Set;
  *         {@link CharsetUtil}.UTF_8));</strong>
  * </pre>
  *
- * <h3>Simplify shutdown process with {@link ChannelGroup}</h3>
+ * <h3>使用{@link ChannelGroup}简化关闭程序</h3>
  * <p>
  * If both {@link ServerChannel}s and non-{@link ServerChannel}s exist in the
  * same {@link ChannelGroup}, any requested I/O operations on the group are
  * performed for the {@link ServerChannel}s first and then for the others.
+ *
+ * 如果{@link ServerChannel}和非{@link ServerChannel}都存在于同一个{@link ChannelGroup}中,
+ * 则对该组执行任何请求的I/O操作,首先针对{@link ServerChannel},然后针对其他操作.
+ *
  * <p>
- * This rule is very useful when you shut down a server in one shot:
+ * 当你一次性关闭服务器时,此规则非常有用:
  *
  * <pre>
  * <strong>{@link ChannelGroup} allChannels =

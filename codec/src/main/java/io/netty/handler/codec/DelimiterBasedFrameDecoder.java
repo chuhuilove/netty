@@ -23,34 +23,34 @@ import io.netty.channel.ChannelHandlerContext;
 import java.util.List;
 
 /**
- * A decoder that splits the received {@link ByteBuf}s by one or more
- * delimiters.  It is particularly useful for decoding the frames which ends
- * with a delimiter such as {@link Delimiters#nulDelimiter() NUL} or
+ * 通过一个或多个分隔符来解码分割接收到的{@link ByteBuf}.
+ * 它对解码以分隔符结尾的帧特别有用,例如{@link Delimiters#nulDelimiter() NULL}或
  * {@linkplain Delimiters#lineDelimiter() newline characters}.
  *
- * <h3>Predefined delimiters</h3>
+ * <h3>预定义分隔符</h3>
  * <p>
- * {@link Delimiters} defines frequently used delimiters for convenience' sake.
+ * 为了便于使用,{@link Delimiters}定义了经常使用的分隔符.
  *
- * <h3>Specifying more than one delimiter</h3>
+ * <h3>指定多个分隔符</h3>
  * <p>
- * {@link DelimiterBasedFrameDecoder} allows you to specify more than one
- * delimiter.  If more than one delimiter is found in the buffer, it chooses
- * the delimiter which produces the shortest frame.  For example, if you have
- * the following data in the buffer:
+ *
+ * {@link DelimiterBasedFrameDecoder}允许你指定多个分隔符.如果在buffer中发现多个分隔符,则选择产生最短帧的分隔符.
+ * 比如,在你的buffer中有下面的数据:
+ *
  * <pre>
  * +--------------+
  * | ABC\nDEF\r\n |
  * +--------------+
  * </pre>
- * a {@link DelimiterBasedFrameDecoder}({@link Delimiters#lineDelimiter() Delimiters.lineDelimiter()})
- * will choose {@code '\n'} as the first delimiter and produce two frames:
+ * {@link DelimiterBasedFrameDecoder}({@link Delimiters#lineDelimiter() Delimiters.lineDelimiter()})
+ * 将选择{@code '\n'}作为第一个分隔符并且生成两个帧.
+ *
  * <pre>
  * +-----+-----+
  * | ABC | DEF |
  * +-----+-----+
  * </pre>
- * rather than incorrectly choosing {@code '\r\n'} as the first delimiter:
+ * 而不是错误地选择{@code '\r\n'}作为第一个分隔符：
  * <pre>
  * +----------+
  * | ABC\nDEF |
@@ -147,21 +147,17 @@ public class DelimiterBasedFrameDecoder extends ByteToMessageDecoder {
     }
 
     /**
-     * Creates a new instance.
+     * 创建一个新实例.
      *
-     * @param maxFrameLength  the maximum length of the decoded frame.
-     *                        A {@link TooLongFrameException} is thrown if
-     *                        the length of the frame exceeds this value.
-     * @param stripDelimiter  whether the decoded frame should strip out the
-     *                        delimiter or not
-     * @param failFast  If <tt>true</tt>, a {@link TooLongFrameException} is
-     *                  thrown as soon as the decoder notices the length of the
-     *                  frame will exceed <tt>maxFrameLength</tt> regardless of
-     *                  whether the entire frame has been read.
-     *                  If <tt>false</tt>, a {@link TooLongFrameException} is
-     *                  thrown after the entire frame that exceeds
-     *                  <tt>maxFrameLength</tt> has been read.
-     * @param delimiters  the delimiters
+     * @param maxFrameLength  解码帧最大长度
+     *                        如果帧长度超过这个值则抛出{@link TooLongFrameException}.
+     * @param stripDelimiter  解码后的帧是否应该去掉分隔符
+     * @param failFast  如果<tt>true</tt>,
+     *                  只要解码器注意到帧的长度将超过<tt>maxFrameLength</tt>,
+     *                  就会抛出{@link TooLongFrameException},无论整个帧是否已被读取.
+     *                  如果<tt>false</tt>,
+     *                  则在读取超过<tt>maxFrameLength</tt>的整个帧后抛出{@link TooLongFrameException}.
+     * @param delimiters  分隔符
      */
     public DelimiterBasedFrameDecoder(
             int maxFrameLength, boolean stripDelimiter, boolean failFast, ByteBuf... delimiters) {

@@ -33,8 +33,11 @@ import java.util.List;
  * {@link ChannelInboundHandlerAdapter} which decodes bytes in a stream-like fashion from one {@link ByteBuf} to an
  * other Message type.
  *
- * For example here is an implementation which reads all readable bytes from
- * the input {@link ByteBuf} and create a new {@link ByteBuf}.
+ * {@link ChannelInboundHandlerAdapter}的子类,它以类似流的方式将字节从一个{@link ByteBuf}解码为另一个Message类型.
+ *
+ *
+ * e.g. 这里有一个实现,从输入的{@link ByteBuf}中读取所有可读字节,并且创建一个新的{@link ByteBuf}.
+ *
  *
  * <pre>
  *     public class SquareDecoder extends {@link ByteToMessageDecoder} {
@@ -46,29 +49,43 @@ import java.util.List;
  *     }
  * </pre>
  *
- * <h3>Frame detection</h3>
+ * <h3>帧检测</h3>
  * <p>
- * Generally frame detection should be handled earlier in the pipeline by adding a
- * {@link DelimiterBasedFrameDecoder}, {@link FixedLengthFrameDecoder}, {@link LengthFieldBasedFrameDecoder},
- * or {@link LineBasedFrameDecoder}.
+ * 通常,应通过添加{@link DelimiterBasedFrameDecoder}, {@link FixedLengthFrameDecoder}, {@link LengthFieldBasedFrameDecoder},
+ * 或{@link LineBasedFrameDecoder} 来在pipeline中更早地处理帧检测.
+ *
  * <p>
  * If a custom frame decoder is required, then one needs to be careful when implementing
  * one with {@link ByteToMessageDecoder}. Ensure there are enough bytes in the buffer for a
  * complete frame by checking {@link ByteBuf#readableBytes()}. If there are not enough bytes
  * for a complete frame, return without modifying the reader index to allow more bytes to arrive.
+ *
+ * 如果需要定制帧解码器,那么在使用{@link ByteToMessageDecoder}实现自定义帧解码器时需要小心.
+ * 通过检查{@link ByteBuf#readableBytes()},确保缓冲区中有足够的字节来保存完整的帧.
+ * 如果一个完整的帧没有足够的字节,返回时不修改reader索引,以允许更多的字节到达.
+ *
+ *
  * <p>
  * To check for complete frames without modifying the reader index, use methods like {@link ByteBuf#getInt(int)}.
  * One <strong>MUST</strong> use the reader index when using methods like {@link ByteBuf#getInt(int)}.
  * For example calling <tt>in.getInt(0)</tt> is assuming the frame starts at the beginning of the buffer, which
  * is not always the case. Use <tt>in.getInt(in.readerIndex())</tt> instead.
- * <h3>Pitfalls</h3>
+ *
+ *
+ * 要在不修改reader索引的情况下检查完整的帧,可以使用{@link ByteBuf#getInt(int)}之类的方法.
+ * 当使用像{@link ByteBuf#getInt(int)}这样的方法时,<strong>MUST</strong>使用reader索引.
+ * 例如,调用<tt>in.getInt(0)</tt>假设帧在缓冲区的开头处开始,但情况并非总是如此.
+ * 请改用<tt>in.getInt(in.readerIndex())</tt>.
+ *
+ *
+ * <h3>陷阱</h3>
  * <p>
- * Be aware that sub-classes of {@link ByteToMessageDecoder} <strong>MUST NOT</strong>
- * annotated with {@link @Sharable}.
+ * 请注意,{@link ByteToMessageDecoder}子类<strong>必须不能</strong>使用{@link @Sharable}注解.
+ *
  * <p>
- * Some methods such as {@link ByteBuf#readBytes(int)} will cause a memory leak if the returned buffer
- * is not released or added to the <tt>out</tt> {@link List}. Use derived buffers like {@link ByteBuf#readSlice(int)}
- * to avoid leaking memory.
+ * 如果返回的缓冲区未释放或添加到<tt>out</tt>{@link List},则某些方法(如{@link ByteBuf#readBytes(int)}将导致内存泄漏.
+ * 使用{@link ByteBuf#readSlice(int)}等派生缓冲区来避免内存泄漏.
+ *
  */
 public abstract class ByteToMessageDecoder extends ChannelInboundHandlerAdapter {
 

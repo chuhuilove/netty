@@ -239,17 +239,14 @@ import java.nio.charset.UnsupportedCharsetException;
  *   <li>{@link #retainedSlice(int, int)}</li>
  *   <li>{@link #readRetainedSlice(int)}</li>
  * </ul>
- * A derived buffer will have an independent {@link #readerIndex() readerIndex},
- * {@link #writerIndex() writerIndex} and marker indexes, while it shares
- * other internal data representation, just like a NIO buffer does.
  *
- * 派生buffer将依赖
+ * 派生的缓冲区将具有独立的{@link #readerIndex() readerIndex}、{@link #writerIndex() writerIndex}和标记索引,
+ * 同时共享其他内部数据表示,就像NIO缓冲区一样.
  *
  * <p>
- * In case a completely fresh copy of an existing buffer is required, please
- * call {@link #copy()} method instead.
+ * 如果需要一个现有缓冲区的完全新副本,请调用{@link #copy()}方法.
  *
- * <h4>Non-retained and retained derived buffers</h4>
+ * <h4>非保留和保留的派生缓冲区</h4>
  *
  * Note that the {@link #duplicate()}, {@link #slice()}, {@link #slice(int, int)} and {@link #readSlice(int)} does NOT
  * call {@link #retain()} on the returned derived buffer, and thus its reference count will NOT be increased. If you
@@ -257,13 +254,21 @@ import java.nio.charset.UnsupportedCharsetException;
  * {@link #retainedSlice()}, {@link #retainedSlice(int, int)} and {@link #readRetainedSlice(int)} which may return
  * a buffer implementation that produces less garbage.
  *
- * <h3>Conversion to existing JDK types</h3>
+ * 请注意，{@link #duplicate()},{@link #slice()},{@link #slice(int,int)}和
+ * {@link #readSlice(int)}不会调用{@link #retain()}返回的派生缓冲区,因此它的引用计数不会增加.
+ * 如果需要创建具有增加引用计数的派生缓冲区,请考虑使用{@link #retainedDuplicate()},{@link #retainedSlice()},
+ * {@link #retainedSlice(int,int)}和{@link #readRetainedSlice(int)}可能会返回一个产生较少垃圾的缓冲区实现.
  *
- * <h4>Byte array</h4>
+ * <h3>转换为现有的JDK类型</h3>
+ *
+ * <h4>字节数组</h4>
  *
  * If a {@link ByteBuf} is backed by a byte array (i.e. {@code byte[]}),
  * you can access it directly via the {@link #array()} method.  To determine
  * if a buffer is backed by a byte array, {@link #hasArray()} should be used.
+ *
+ * 如果{@link ByteBuf}由字节数组（即{@code byte []}）支持,则可以通过{@link #array()}方法直接访问它.
+ * 要确定缓冲区是否由字节数组支持,应使用{@link #hasArray()}.
  *
  * <h4>NIO Buffers</h4>
  *
@@ -271,11 +276,17 @@ import java.nio.charset.UnsupportedCharsetException;
  * content (i.e. view buffer), you can get it via the {@link #nioBuffer()} method.  To determine
  * if a buffer can be converted into an NIO buffer, use {@link #nioBufferCount()}.
  *
+ * 如果{@link ByteBuf}可以转换为共享其内容的NIO {@link ByteBuffer}(即视图缓冲区),则可以通过{@link #nioBuffer()}方法获取它.
+ * 要确定缓冲区是否可以转换为NIO缓冲区,请使用{@link #nioBufferCount()}.
+ *
  * <h4>Strings</h4>
  *
- * Various {@link #toString(Charset)} methods convert a {@link ByteBuf}
- * into a {@link String}.  Please note that {@link #toString()} is not a
- * conversion method.
+ * 各种{@link #toString(Charset)}方法能将{@link ByteBuf}转换到{@link String}.
+ * 请注意{@link #toString()}不是转换方法.
+ *
+ *
+ *
+ *
  *
  *
  *

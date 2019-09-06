@@ -94,7 +94,7 @@ import io.netty.handler.codec.serialization.ObjectDecoder;
  * </pre>
  *
  * <h3>2 bytes length field at offset 0, do not strip header, the length field
- *     represents the length of the whole message</h3>
+ *     represents the length of the whole message 2字节长度字段在偏移量为0时,不要带标题,length字段表示整个消息的长度</h3>
  *
  * In most cases, the length field represents the length of the message body
  * only, as shown in the previous examples.  However, in some protocols, the
@@ -103,6 +103,13 @@ import io.netty.handler.codec.serialization.ObjectDecoder;
  * <tt>lengthAdjustment</tt>.  Because the length value in this example message
  * is always greater than the body length by <tt>2</tt>, we specify <tt>-2</tt>
  * as <tt>lengthAdjustment</tt> for compensation.
+ *
+ * 在大多数情况下,length字段只代表消息体的长度,如前面的示例所示.
+ * 但是在某些协议中,length字段代表包括消息头在内的整个消息的长度.
+ * 在这种情况下,我们指定一个非零<tt>lengthAdjustment</tt>.
+ * 由于此示例消息中的length值总是比body长度多<tt>2</ tt>个字节,因此我们将<tt>-2</tt>指定为<tt>lengthAdjustment</tt>进行补偿.
+ *
+ *
  * <pre>
  * lengthFieldOffset   =  0
  * lengthFieldLength   =  2
@@ -116,12 +123,16 @@ import io.netty.handler.codec.serialization.ObjectDecoder;
  * +--------+----------------+      +--------+----------------+
  * </pre>
  *
- * <h3>3 bytes length field at the end of 5 bytes header, do not strip header</h3>
+ * <h3>3 bytes length field at the end of 5 bytes header, do not strip header 3字节length字段在5字节头的末尾,不剥离头</h3>
  *
  * The following message is a simple variation of the first example.  An extra
  * header value is prepended to the message.  <tt>lengthAdjustment</tt> is zero
  * again because the decoder always takes the length of the prepended data into
  * account during frame length calculation.
+ *
+ * 以下消息是第一个示例的简单变体.消息前面附加了一个额外的标头值.
+ * <tt>lengthAdjustment </tt>再次为零,因为解码器总是在帧长度计算期间考虑前置数据的长度.
+ *
  * <pre>
  * <b>lengthFieldOffset</b>   = <b>2</b> (= the length of Header 1)
  * <b>lengthFieldLength</b>   = <b>3</b>
@@ -141,6 +152,11 @@ import io.netty.handler.codec.serialization.ObjectDecoder;
  * header between the length field and the message body.  You have to specify a
  * positive <tt>lengthAdjustment</tt> so that the decoder counts the extra
  * header into the frame length calculation.
+ *
+ * 这是一个高级示例,显示了长度字段和消息正文之间存在额外标头的情况.
+ * 您必须指定正<tt>lengthAdjustment</tt>,以便解码器将额外标头计入帧长度计算.
+ *
+ *
  * <pre>
  * lengthFieldOffset   = 0
  * lengthFieldLength   = 3
@@ -164,6 +180,12 @@ import io.netty.handler.codec.serialization.ObjectDecoder;
  * <tt>initialBytesToStrip</tt> to strip the length field and the prepended
  * header from the frame.  If you don't want to strip the prepended header, you
  * could specify <tt>0</tt> for <tt>initialBytesToSkip</tt>.
+ *
+ * 这是上述所有示例的组合.
+ *
+ *
+ *
+ *
  * <pre>
  * lengthFieldOffset   = 1 (= the length of HDR1)
  * lengthFieldLength   = 2
@@ -187,6 +209,11 @@ import io.netty.handler.codec.serialization.ObjectDecoder;
  * We have to count the length of HDR1 and Length into <tt>lengthAdjustment</tt>.
  * Please note that we don't need to take the length of HDR2 into account
  * because the length field already includes the whole header length.
+ *
+ * 让我们再举一个上一个例子.与前一个示例的唯一区别是length字段表示整个消息的长度而不是消息正文,就像第三个示例一样.
+ * 我们必须将HDR1和Length的长度计算为<tt>lengthAdjustment</tt>.
+ * 请注意，我们不需要考虑HDR2的长度,因为长度字段已包含整个标头长度.
+ *
  * <pre>
  * lengthFieldOffset   =  1
  * lengthFieldLength   =  2

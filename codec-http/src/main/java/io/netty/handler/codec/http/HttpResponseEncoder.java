@@ -21,8 +21,8 @@ import io.netty.buffer.ByteBufUtil;
 import static io.netty.handler.codec.http.HttpConstants.*;
 
 /**
- * Encodes an {@link HttpResponse} or an {@link HttpContent} into
- * a {@link ByteBuf}.
+ * 将{@link HttpResponse}或{@link HttpContent}编码成{@link ByteBuf}.
+ *
  */
 public class HttpResponseEncoder extends HttpObjectEncoder<HttpResponse> {
 

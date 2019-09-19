@@ -34,10 +34,11 @@ import static io.netty.handler.codec.http.HttpConstants.CR;
 import static io.netty.handler.codec.http.HttpConstants.LF;
 
 /**
- * Encodes an {@link HttpMessage} or an {@link HttpContent} into
- * a {@link ByteBuf}.
  *
- * <h3>Extensibility</h3>
+ * 将{@link HttpMessage}或{@link HttpContent}编码成{@link ByteBuf}.
+ *
+ *
+ * <h3>可扩展性</h3>
  *
  * Please note that this encoder is designed to be extended to implement
  * a protocol derived from HTTP, such as
@@ -45,6 +46,9 @@ import static io.netty.handler.codec.http.HttpConstants.LF;
  * <a href="http://en.wikipedia.org/wiki/Internet_Content_Adaptation_Protocol">ICAP</a>.
  * To implement the encoder of such a derived protocol, extend this class and
  * implement all abstract methods properly.
+ *
+ * 请注意,这个编码器的设计用来扩展实现
+ *
  */
 public abstract class HttpObjectEncoder<H extends HttpMessage> extends MessageToMessageEncoder<Object> {
     static final int CRLF_SHORT = (CR << 8) | LF;

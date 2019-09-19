@@ -21,9 +21,10 @@ import io.netty.handler.codec.TooLongFrameException;
 
 
 /**
- * Decodes {@link ByteBuf}s into {@link HttpRequest}s and {@link HttpContent}s.
  *
- * <h3>Parameters that prevents excessive memory consumption</h3>
+ * 将{@link ByteBuf}s解码成{@link HttpRequest}s 和 {@link HttpContent}s.
+ *
+ * <h3>防止过多内存消耗的参数</h3>
  * <table border="1">
  * <tr>
  * <th>Name</th><th>Meaning</th>

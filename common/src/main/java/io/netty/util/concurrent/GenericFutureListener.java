@@ -18,6 +18,10 @@ package io.netty.util.concurrent;
 import java.util.EventListener;
 
 /**
+ *
+ * 监听{@link Future}的结果.
+ * 一旦调用{@link Future#addListener(GenericFutureListener)}添加此监听器,异步操作的结果将被通知.
+ *
  * Listens to the result of a {@link Future}.  The result of the asynchronous operation is notified once this listener
  * is added by calling {@link Future#addListener(GenericFutureListener)}.
  */

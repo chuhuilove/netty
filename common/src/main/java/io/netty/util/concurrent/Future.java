@@ -26,8 +26,7 @@ import java.util.concurrent.TimeUnit;
 public interface Future<V> extends java.util.concurrent.Future<V> {
 
     /**
-     * Returns {@code true} if and only if the I/O operation was completed
-     * successfully.
+     * 当且仅当I/O操作成功完成时,返回{@code true}.
      */
     boolean isSuccess();
 

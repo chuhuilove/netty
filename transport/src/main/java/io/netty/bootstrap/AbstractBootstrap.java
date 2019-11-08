@@ -43,11 +43,17 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
+ * {@link AbstractBootstrap} 是一个帮助类,
+ *
+ *
  * {@link AbstractBootstrap} is a helper class that makes it easy to bootstrap a {@link Channel}. It support
  * method-chaining to provide an easy way to configure the {@link AbstractBootstrap}.
  *
  * <p>When not used in a {@link ServerBootstrap} context, the {@link #bind()} methods are useful for connectionless
  * transports such as datagram (UDP).</p>
+ *
+ * 如果不在{@link ServerBootstrap}上下文中使用,则{@link #bind()}方法可用于无连接传输,例如数据报(UDP).
+ *
  */
 public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C extends Channel> implements Cloneable {
 
@@ -96,6 +102,9 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
      *
      * {@link Class} 被用于创建{@link Channel}实例.
      * 如果你的{@link Channel}实现有无参构造函数,你可以使用此函数或{@link #channelFactory(io.netty.channel.ChannelFactory)}
+     *
+     * 调用这个函数,实际上是为了给{@link #channelFactory}赋值
+     *
      *
      */
     public B channel(Class<? extends C> channelClass) {
@@ -164,6 +173,7 @@ public abstract class AbstractBootstrap<B extends AbstractBootstrap<B, C>, C ext
      * created. Use a value of {@code null} to remove a previous set {@link ChannelOption}.
      *
      * 允许指定{@link ChannelOption},它在创建后用于{@link Channel}实例.
+     *
      * 使用{@code null}值来移除之前设置的{@link ChannelOption}.
      *
      */

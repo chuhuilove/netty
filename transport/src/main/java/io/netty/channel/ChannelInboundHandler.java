@@ -34,7 +34,8 @@ public interface ChannelInboundHandler extends ChannelHandler {
     void channelUnregistered(ChannelHandlerContext ctx) throws Exception;
 
     /**
-     * The {@link Channel} of the {@link ChannelHandlerContext} is now active
+     * {@link ChannelHandlerContext}的{@link Channel}现在处于活动状态
+     *
      */
     void channelActive(ChannelHandlerContext ctx) throws Exception;
 

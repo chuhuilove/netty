@@ -48,6 +48,13 @@ public class ServerBootstrap extends AbstractBootstrap<ServerBootstrap, ServerCh
     private final Map<ChannelOption<?>, Object> childOptions = new ConcurrentHashMap<ChannelOption<?>, Object>();
     private final Map<AttributeKey<?>, Object> childAttrs = new ConcurrentHashMap<AttributeKey<?>, Object>();
     private final ServerBootstrapConfig config = new ServerBootstrapConfig(this);
+
+    /**
+     * ServerBootstrap有两个{@code EventLoopGroup}类型的字段.
+     * 一个是来自父类{@code AbstractBootstrap}的{@link #group}
+     * 另一个就是这个{@link #childGroup}
+     */
+
     private volatile EventLoopGroup childGroup;
     private volatile ChannelHandler childHandler;
 

@@ -90,6 +90,8 @@ public interface Future<V> extends java.util.concurrent.Future<V> {
     Future<V> sync() throws InterruptedException;
 
     /**
+     * 等待这个future直到它完成,如果这个future失败,重新抛出失败的原因.
+     * 见名知意,同步等待,除非其中断
      * Waits for this future until it is done, and rethrows the cause of the failure if this future
      * failed.
      */
